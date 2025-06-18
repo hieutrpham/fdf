@@ -1,29 +1,63 @@
-NAME	:= fdf
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
-LIBMLX	:= ./lib/MLX42
+CC = cc -Wall -Werror -Wextra -MMD -MP -Wunreachable-code -Ofast
+NAME = fdf
+SRC_PATH = src/
+OBJ_PATH = obj/
+LIBFT_PATH = ./libft/
+LIBFT = $(LIBFT_PATH)libft.a
+TEST_PATH = tests/
+LIBMLX = ./MLX42
+LIBX := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
+INCLUDE = -I. -Iinclude/ -I$(LIBMLX)/include
 
-HEADERS	:= -I ./include -I $(LIBMLX)/include
-LIBS	:= $(LIBMLX)/build/libmlx42.a
-XFLAG	:= -ldl -lglfw -pthread -lm
+GREEN := \033[32m
+RESET := \033[0m
 
-all: libmlx $(NAME)
+SRC = main.c \
+
+SRCS = $(addprefix $(SRC_PATH), $(SRC))
+
+OBJ = $(SRC:.c=.o)
+OBJS = $(addprefix $(OBJ_PATH), $(OBJ))
+DEP = $(addprefix $(OBJ_PATH), $(SRC:.c=.d))
+
+all: libmlx $(OBJ_PATH) $(LIBFT) $(NAME)
 
 libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
-%.o: %.c
-	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)"
+$(OBJ_PATH):
+	@mkdir -p $(OBJ_PATH)
+
+$(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	@$(CC) $(INCLUDE) -c $< -o $@
 
 $(NAME): $(OBJS)
-	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	@$(CC) $^ -o $@ $(LIBFT) $(LIBX)
+	@printf "$(GREEN)$(NAME) created successfully!$(RESET)\n"
+
+$(LIBFT):
+	make -C $(LIBFT_PATH)
+
+test: all
+	$(TEST_PATH)test
 
 clean:
-	@rm -rf $(OBJS)
-	@rm -rf $(LIBMLX)/build
+	rm -rf $(OBJ_PATH) $(DEP) 
+	make -C $(LIBFT_PATH) clean
 
 fclean: clean
-	@rm -rf $(NAME)
+	rm -f $(NAME)
+	make -C $(LIBFT_PATH) fclean
 
-re: clean all
+re: fclean all
 
-.PHONY: all, clean, fclean, re, libmlx
+debug:
+	make CC="$(CC) -g" re
+
+asan:
+	make CC="$(CC) -fsanitize=address" re
+
+.PHONY: all re clean fclean debug asan
+
+-include $(DEP)
+

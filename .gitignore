@@ -3,7 +3,7 @@ ft_printf_tester
 *.vim
 *.json
 .cache
-pipex
+fdf
 *nopermission
 # Prerequisites
 *.d
