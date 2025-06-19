@@ -4,7 +4,6 @@ SRC_PATH = src/
 OBJ_PATH = obj/
 LIBFT_PATH = ./libft/
 LIBFT = $(LIBFT_PATH)libft.a
-TEST_PATH = tests/
 LIBMLX = ./MLX42
 LIBX := $(LIBMLX)/build/libmlx42.a -ldl -lglfw -pthread -lm
 INCLUDE = -I. -Iinclude/ -I$(LIBMLX)/include
@@ -13,6 +12,7 @@ GREEN := \033[32m
 RESET := \033[0m
 
 SRC = main.c \
+	  draw.c
 
 SRCS = $(addprefix $(SRC_PATH), $(SRC))
 
@@ -38,9 +38,6 @@ $(NAME): $(OBJS)
 $(LIBFT):
 	make -C $(LIBFT_PATH)
 
-test: all
-	$(TEST_PATH)test
-
 clean:
 	rm -rf $(OBJ_PATH) $(DEP) 
 	make -C $(LIBFT_PATH) clean
@@ -60,4 +57,3 @@ asan:
 .PHONY: all re clean fclean debug asan
 
 -include $(DEP)
-
