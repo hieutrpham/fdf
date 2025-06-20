@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-static int	count_word(const char *s, char c)
+int	ft_count_word(const char *s, char c)
 {
 	int	word_count;
 	int	i;
@@ -104,7 +104,7 @@ char	**ft_split(char const *s, char c)
 
 	if (!s)
 		return (NULL);
-	arr = ft_calloc((count_word(s, c) + 1), sizeof(char *));
+	arr = ft_calloc((ft_count_word(s, c) + 1), sizeof(char *));
 	if (!arr)
 		return (NULL);
 	return (split(s, c, &arr));

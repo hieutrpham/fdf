@@ -12,6 +12,7 @@
 
 #include "../include/fdf.h"
 
+// helper for mlx_put_pixel
 void put_pixel(mlx_image_t* img, unsigned int x, unsigned int y, int color)
 {
     if (x < img->width && y < img->height)
@@ -19,6 +20,7 @@ void put_pixel(mlx_image_t* img, unsigned int x, unsigned int y, int color)
 }
 
 // Bresenham's Line Algorithm implementation
+// WARN: need to refactor
 void draw_line(mlx_image_t* img, t_point2d p0, t_point2d p1,  int color)
 {
 	int dx = abs(p1.x - p0.x);
@@ -48,14 +50,16 @@ void draw_line(mlx_image_t* img, t_point2d p0, t_point2d p1,  int color)
         }
     }
 }
-t_point2d project_isometric(t_point3d p3d)
+
+// function that converts a 3d point {x,y,z} to a 2d point {x,y} base on isometric projection
+t_point2d project_isometric(t_point3d p3d, int map_width, int map_height, int scale)
 {
     t_point2d p2d;
 
-	p3d.x -= 19 /2; // width of the map
-	p3d.y -= 11/2; // height of the map
-	p2d.x = (2 * p3d.x - 2*p3d.y) * 10 + WIDTH/2; // 10 is scale that needs to be adjusted to the map
-	p2d.y = (p3d.x + p3d.y - p3d.z) * 10 + HEIGHT/2;
+	p3d.x -= map_width /2;
+	p3d.y -= map_height/2;
+	p2d.x = (2 * p3d.x - 2*p3d.y) * scale + WIDTH/2;
+	p2d.y = (p3d.x + p3d.y - p3d.z) * scale + HEIGHT/2;
 
     return p2d;
 }

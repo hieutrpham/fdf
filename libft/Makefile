@@ -52,6 +52,7 @@ SRC :=	ft_atoi.c \
 		ft_utils.c \
 		ft_putnbr.c \
 		ft_puthex.c \
+		ft_count_word.c \
 
 BONUS:= ft_lstadd_back_bonus.c \
 		ft_lstadd_front_bonus.c \

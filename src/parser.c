@@ -1,41 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: trupham <trupham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/16 15:10:22 by trupham           #+#    #+#             */
-/*   Updated: 2025/06/20 12:28:55 by trupham          ###   ########.fr       */
+/*   Created: 2025/06/20 11:50:08 by trupham           #+#    #+#             */
+/*   Updated: 2025/06/20 11:50:11 by trupham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-t_point2d *convert_3d_to_2d(int **map, int map_height, int map_width);
-
-int main(int ac, char **av)
+int parser(char *av)
 {
-	// mlx_t* mlx;
-	// mlx_image_t* g_img;
-	//
-	//    mlx = mlx_init(WIDTH, HEIGHT, "MLX42 FdF Isometric", true);
-	//    if (!mlx)
-	//        exit(EXIT_FAILURE);
-	//    g_img = mlx_new_image(mlx, WIDTH, HEIGHT);
-	//    if (!g_img)
-	//    {
-	//        mlx_terminate(mlx);
-	//        exit(EXIT_FAILURE);
-	//    }
-	//    mlx_image_to_window(mlx, g_img, 0, 0);
-	//    mlx_loop(mlx);
-	//    mlx_terminate(mlx);
-	if (ac != 2)
-		return EXIT_FAILURE;
 	int fd;
 
-	fd = open(av[1], O_RDONLY);
+	fd = open(av, O_RDONLY);
 	if (!fd)
 		return EXIT_FAILURE;
 	char *line;
@@ -49,5 +30,5 @@ int main(int ac, char **av)
 		map_height++;
 		free(line);
 	}
-    return (EXIT_SUCCESS);
+	return 1;
 }
