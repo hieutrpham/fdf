@@ -34,7 +34,7 @@ t_list *build_list(char *av)
 			break;
 		new = ft_lstnew(line);
 		if (!new)
-			return (NULL);
+			return (ft_lstclear(&head, free), free(line), NULL);
 		ft_lstadd_back(&head, new);
 	}
 	close(fd);
