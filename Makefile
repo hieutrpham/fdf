@@ -12,7 +12,9 @@ GREEN := \033[32m
 RESET := \033[0m
 
 SRC = main.c \
-	  draw.c
+	  draw.c \
+	  parser.c \
+	  projection.c \
 
 SRCS = $(addprefix $(SRC_PATH), $(SRC))
 

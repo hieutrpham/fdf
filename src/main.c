@@ -12,8 +12,6 @@
 
 #include "../include/fdf.h"
 
-t_point2d *convert_3d_to_2d(int **map, int map_height, int map_width);
-
 int main(int ac, char **av)
 {
 	// mlx_t* mlx;
@@ -33,21 +31,13 @@ int main(int ac, char **av)
 	//    mlx_terminate(mlx);
 	if (ac != 2)
 		return EXIT_FAILURE;
-	int fd;
-
-	fd = open(av[1], O_RDONLY);
-	if (!fd)
-		return EXIT_FAILURE;
-	char *line;
-	int map_height = 0;
-	while (1)
+	t_list *node = build_list(av[1]);
+	t_list *current = node;
+	while (current)
 	{
-		line = get_next_line(fd);
-		if (line == 0)
-			break;
-		ft_printf(line);
-		map_height++;
-		free(line);
+		ft_printf("%s", current->content);
+		current = current->next;
 	}
+	ft_lstclear(&node, free);
     return (EXIT_SUCCESS);
 }

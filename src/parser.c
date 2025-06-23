@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   build_list.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: trupham <trupham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,23 +12,31 @@
 
 #include "../include/fdf.h"
 
-int parser(char *av)
+/* read each line from fd and create a new node for each line
+ * @param the path to the file
+ * @return the head of the linked list
+ */
+t_list *build_list(char *av)
 {
 	int fd;
-
-	fd = open(av, O_RDONLY);
-	if (!fd)
-		return EXIT_FAILURE;
+	t_list *head;
 	char *line;
-	int map_height = 0;
+	t_list *new;
+
+	head = NULL;
+	fd = open(av, O_RDONLY);
+	if (fd == -1)
+		return (perror("Error opening file"), NULL);
 	while (1)
 	{
 		line = get_next_line(fd);
-		if (line == 0)
+		if (!line)
 			break;
-		ft_printf(line);
-		map_height++;
-		free(line);
+		new = ft_lstnew(line);
+		if (!new)
+			return (NULL);
+		ft_lstadd_back(&head, new);
 	}
-	return 1;
+	close(fd);
+	return head;
 }

@@ -1,7 +1,5 @@
 ## TODO
 * need to implement the parsing of maps
     * get_next_line to read from the file
-    * function to store the line information into a structure?
-    * t_points3d *arr = {array of t_points3d}
-    * iterate through the file line by line
-        * in each line, i have to grab the coordinates of the points and its z value
+    * store each line in a node of linked list
+    * walk through the list. in each node, split the content on ' ', count the number of words to get the width of the map. the length of the list is the height of the map
