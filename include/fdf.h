@@ -46,7 +46,14 @@ typedef struct s_point2d
 	int y;
 } t_point2d;
 
+typedef struct s_map
+{
+	unsigned int height;
+	unsigned int width;
+} t_map;
+
 void put_pixel(mlx_image_t* img, unsigned int x, unsigned int y, int color);
 void draw_line(mlx_image_t* img, t_point2d p0, t_point2d p1,  int color);
 t_point2d project_isometric(t_point3d p3d, int map_width, int map_height, int scale);
 t_list *build_list(char *av);
+t_map *build_map(t_list *head);

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   build_list.c                                           :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: trupham <trupham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -39,4 +39,27 @@ t_list *build_list(char *av)
 	}
 	close(fd);
 	return head;
+}
+
+/* walk through the list to get the map data
+ * @return t_map includes height, width
+ */
+t_map *build_map(t_list *head)
+{
+	t_map *map;
+	unsigned int width;
+
+	map = malloc(sizeof(t_map));
+	if (!map)
+		return NULL;
+	map->height = ft_lstsize(head);
+	map->width = ft_count_word(head->content, ' ');
+	while (head)
+	{
+		width = ft_count_word(head->content, ' ');
+		if (map->width != width)
+			return (ft_putendl_fd("invalid map", 2), NULL);
+		head = head->next;
+	}
+	return map;
 }

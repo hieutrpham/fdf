@@ -32,12 +32,9 @@ int main(int ac, char **av)
 	if (ac != 2)
 		return EXIT_FAILURE;
 	t_list *node = build_list(av[1]);
-	t_list *current = node;
-	while (current)
-	{
-		ft_printf("%s", current->content);
-		current = current->next;
-	}
+	t_map *map = build_map(node);
+	ft_printf("%i, %i\n", map->width, map->height);
+	free(map);
 	ft_lstclear(&node, free);
     return (EXIT_SUCCESS);
 }
