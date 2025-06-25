@@ -21,33 +21,49 @@ void put_pixel(mlx_image_t* img, unsigned int x, unsigned int y, int color)
 
 // Bresenham's Line Algorithm implementation
 // @draw a line between 2 points p0 -> p1
-// @WARN: need to refactor
+t_bres *init_bres(t_point2d p0, t_point2d p1)
+{
+	t_bres *bres;
+	
+	bres = malloc(sizeof(t_bres));
+	if (!bres)
+		return NULL;
+	if (p0.x < p1.x)
+		bres->sx = 1;
+	else
+		bres->sx = -1;
+	if (p0.y < p1.y)
+		bres->sy = 1;
+	else
+		bres->sy = -1;
+	bres->dy = abs(p1.y - p0.y);
+	bres->dx = abs(p1.x - p0.x);
+	bres->err = bres->dx - bres->dy;
+	return bres;
+}
+
 void draw_line(mlx_image_t* img, t_point2d p0, t_point2d p1,  int color)
 {
-	int dx = abs(p1.x - p0.x);
-    int dy = abs(p1.y - p0.y);
-    int sx = p0.x < p1.x ? 1 : -1;
-    int sy = p0.y < p1.y ? 1 : -1;
-    int err = dx - dy;
+	t_bres *bres;
 
-    int x = p0.x;
-    int y = p0.y;
-
-    while (x != p1.x || y != p1.y)
+	bres = init_bres(p0, p1);
+	if (!bres)
+		return;
+    while (p0.x != p1.x || p0.y != p1.y)
     {
-        put_pixel(img, x, y, color);
-        if (x == p1.x && y == p1.y)
+        put_pixel(img, p0.x, p0.y, color);
+        if (p0.x == p1.x && p0.y == p1.y)
             break;
-        int e2 = 2 * err;
-        if (e2 > -dy)
+        if (2 * bres->err > -bres->dy)
         {
-            err -= dy;
-            x += sx;
+            bres->err -= bres->dy;
+            p0.x += bres->sx;
         }
-        if (e2 < dx)
+        if (2 * bres->err < bres->dx)
         {
-            err += dx;
-            y += sy;
+            bres->err += bres->dx;
+            p0.y += bres->sy;
         }
     }
+	free(bres);
 }

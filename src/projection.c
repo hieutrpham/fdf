@@ -16,9 +16,15 @@
  */
 void connect_lines(t_point2d *points_2d, mlx_image_t *g_img, t_map *map_data)
 {
-    for (unsigned int y = 0; y < map_data->height; y++)
+	unsigned int y;
+	unsigned int x;
+
+	y = 0;
+	x = 0;
+    while (y < map_data->height)
     {
-        for (unsigned int x = 0; x < map_data->width; x++)
+		x = 0;
+        while (x < map_data->width)
         {
             // Draw horizontal lines
             if (x + 1 < map_data->width)
@@ -26,7 +32,9 @@ void connect_lines(t_point2d *points_2d, mlx_image_t *g_img, t_map *map_data)
             // Draw vertical lines
             if (y + 1 < map_data->height)
                 draw_line(g_img, points_2d[y * map_data->width + x], points_2d[(y + 1)* map_data->width + x], WHITE);
+			x++;
         }
+		y++;
     }
 }
 

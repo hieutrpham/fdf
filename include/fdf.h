@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef FDF_H
+
 #include "../MLX42/include/MLX42/MLX42.h"
 #include <stdint.h>
 #include <stdlib.h>
@@ -47,6 +49,14 @@ typedef struct s_point2d
 	int y;
 } t_point2d;
 
+typedef struct s_bres {
+	int dx;
+    int dy;
+    int err;
+	int sx;
+	int sy;
+} t_bres;
+
 typedef struct s_map
 {
 	unsigned int height;
@@ -62,3 +72,5 @@ int *build_map(t_list *head, t_map *map_data);
 void	free_split(char **arr);
 t_point2d *convert_3d_to_2d(int *map, t_map *map_data);
 void connect_lines(t_point2d *points_2d, mlx_image_t *g_img, t_map *map_data);
+
+#endif // !FDF_H

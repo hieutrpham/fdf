@@ -30,11 +30,14 @@ int main(int ac, char **av)
 	}
 	t_list *node = build_list(av[1]);
 	t_map *map_data = get_map_data(node);
+	if (!map_data)
+		return EXIT_FAILURE;
 	int *map = build_map(node, map_data);
 	t_point2d *point2d = convert_3d_to_2d(map, map_data);
 	connect_lines(point2d, g_img, map_data);
 	free(map_data);
 	free(map);
+	free(point2d);
 	ft_lstclear(&node, free);
 	mlx_image_to_window(mlx, g_img, 0, 0);
 	mlx_loop(mlx);

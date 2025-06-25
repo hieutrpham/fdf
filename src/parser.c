@@ -78,12 +78,11 @@ int *build_map(t_list *head, t_map *map_data)
 	while (head)
 	{
 		str_split = ft_split(head->content, ' ');
-		x = 0;
-		while (str_split[x])
-		{
+		if (!str_split)
+			return NULL;
+		x = -1;
+		while (str_split[++x])
 			map[y * map_data->width + x] = ft_atoi(str_split[x]);
-			x++;
-		}
 		y++;
 		free_split(str_split);
 		head = head->next;
