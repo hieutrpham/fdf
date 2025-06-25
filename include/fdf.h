@@ -26,6 +26,7 @@
 #endif
 #define WHITE 0xFFFFFFFF
 #define SCALE 10
+
 /* @struct to store 3d point
  * @members: int x, y, z
  * @need to include color later
@@ -54,6 +55,10 @@ typedef struct s_map
 
 void put_pixel(mlx_image_t* img, unsigned int x, unsigned int y, int color);
 void draw_line(mlx_image_t* img, t_point2d p0, t_point2d p1,  int color);
-t_point2d project_isometric(t_point3d p3d, int map_width, int map_height, int scale);
+t_point2d project_isometric(t_point3d p3d, t_map *map, int scale);
 t_list *build_list(char *av);
-t_map *build_map(t_list *head);
+t_map *get_map_data(t_list *head);
+int *build_map(t_list *head, t_map *map_data);
+void	free_split(char **arr);
+t_point2d *convert_3d_to_2d(int *map, t_map *map_data);
+void connect_lines(t_point2d *points_2d, mlx_image_t *g_img, t_map *map_data);

@@ -44,7 +44,7 @@ t_list *build_list(char *av)
 /* walk through the list to get the map data
  * @return t_map includes height, width
  */
-t_map *build_map(t_list *head)
+t_map *get_map_data(t_list *head)
 {
 	t_map *map;
 	unsigned int width;
@@ -63,3 +63,41 @@ t_map *build_map(t_list *head)
 	}
 	return map;
 }
+
+int *build_map(t_list *head, t_map *map_data)
+{
+	int *map;
+	char **str_split;
+	int y;
+	int x;
+
+	map = malloc(sizeof(int) * map_data->height * map_data->width);
+	if (!map)
+		return NULL;
+	y = 0;
+	while (head)
+	{
+		str_split = ft_split(head->content, ' ');
+		x = 0;
+		while (str_split[x])
+		{
+			map[y * map_data->width + x] = ft_atoi(str_split[x]);
+			x++;
+		}
+		y++;
+		free_split(str_split);
+		head = head->next;
+	}
+	return map;
+}
+
+void	free_split(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i])
+		free(arr[i++]);
+	free(arr);
+}
+

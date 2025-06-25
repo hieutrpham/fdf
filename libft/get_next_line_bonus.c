@@ -18,23 +18,23 @@ static char	*clean_line(char *line, int pos);
 
 char	*get_next_line(int fd)
 {
-	static char	*line[MAX_FD];
+	static char	*line;
 	char		*newline;
 	char		*leftover;
 	int			pos;
 
-	line[fd] = build_line(fd, line[fd]);
-	if (!line[fd] || ft_strlen(line[fd]) == 0)
-		return (free(line[fd]), line[fd] = NULL, NULL);
+	line = build_line(fd, line);
+	if (!line || ft_strlen(line) == 0)
+		return (free(line), line = NULL, NULL);
 	pos = 0;
-	newline = get_line(line[fd], &pos);
+	newline = get_line(line, &pos);
 	if (!newline)
-		return (free(line[fd]), line[fd] = NULL, NULL);
-	leftover = clean_line(line[fd], pos);
+		return (free(line), line = NULL, NULL);
+	leftover = clean_line(line, pos);
 	if (!leftover)
-		return (free(line[fd]), free(newline), line[fd] = NULL, NULL);
-	free(line[fd]);
-	line[fd] = leftover;
+		return (free(line), free(newline), line = NULL, NULL);
+	free(line);
+	line = leftover;
 	return (newline);
 }
 

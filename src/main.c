@@ -14,27 +14,30 @@
 
 int main(int ac, char **av)
 {
-	// mlx_t* mlx;
-	// mlx_image_t* g_img;
-	//
-	//    mlx = mlx_init(WIDTH, HEIGHT, "MLX42 FdF Isometric", true);
-	//    if (!mlx)
-	//        exit(EXIT_FAILURE);
-	//    g_img = mlx_new_image(mlx, WIDTH, HEIGHT);
-	//    if (!g_img)
-	//    {
-	//        mlx_terminate(mlx);
-	//        exit(EXIT_FAILURE);
-	//    }
-	//    mlx_image_to_window(mlx, g_img, 0, 0);
-	//    mlx_loop(mlx);
-	//    mlx_terminate(mlx);
+	mlx_t* mlx;
+	mlx_image_t* g_img;
+
 	if (ac != 2)
 		return EXIT_FAILURE;
+	mlx = mlx_init(WIDTH, HEIGHT, "MLX42 FdF Isometric", true);
+	if (!mlx)
+		exit(EXIT_FAILURE);
+	g_img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	if (!g_img)
+	{
+		mlx_terminate(mlx);
+		exit(EXIT_FAILURE);
+	}
 	t_list *node = build_list(av[1]);
-	t_map *map = build_map(node);
-	ft_printf("%i, %i\n", map->width, map->height);
+	t_map *map_data = get_map_data(node);
+	int *map = build_map(node, map_data);
+	t_point2d *point2d = convert_3d_to_2d(map, map_data);
+	connect_lines(point2d, g_img, map_data);
+	free(map_data);
 	free(map);
 	ft_lstclear(&node, free);
-    return (EXIT_SUCCESS);
+	mlx_image_to_window(mlx, g_img, 0, 0);
+	mlx_loop(mlx);
+	mlx_terminate(mlx);
+	return (EXIT_SUCCESS);
 }
