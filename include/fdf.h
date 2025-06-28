@@ -17,15 +17,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <memory.h>
-#include <math.h>
 #include <fcntl.h>
 #include "../libft/libft.h"
 #define WIDTH 1920
 #define HEIGHT 2000
-#ifndef PI
-#define PI 3.14159265358979323846
-#endif
 #define WHITE 0xFFFFFFFF
 #define SCALE 10
 
@@ -63,7 +58,7 @@ typedef struct s_map
 	unsigned int width;
 } t_map;
 
-void put_pixel(mlx_image_t* img, unsigned int x, unsigned int y, int color);
+void put_pixel(mlx_image_t* img, uint16_t x, uint16_t y, int color);
 void draw_line(mlx_image_t* img, t_point2d p0, t_point2d p1,  int color);
 t_point2d project_isometric(t_point3d p3d, t_map *map, int scale);
 t_list *build_list(char *av);

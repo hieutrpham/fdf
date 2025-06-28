@@ -13,7 +13,7 @@
 #include "../include/fdf.h"
 
 // helper for mlx_put_pixel
-void put_pixel(mlx_image_t* img, unsigned int x, unsigned int y, int color)
+void put_pixel(mlx_image_t* img, uint16_t x, uint16_t y, int color)
 {
     if (x < img->width && y < img->height)
         mlx_put_pixel(img, x, y, color);
