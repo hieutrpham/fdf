@@ -16,12 +16,12 @@
  * @param the path to the file
  * @return the head of the linked list
  */
-t_list *build_list(char *av)
+t_list	*build_list(char *av)
 {
-	int fd;
-	t_list *head;
-	char *line;
-	t_list *new;
+	int		fd;
+	t_list	*head;
+	char	*line;
+	t_list	*new;
 
 	head = NULL;
 	fd = open(av, O_RDONLY);
@@ -31,27 +31,27 @@ t_list *build_list(char *av)
 	{
 		line = get_next_line(fd);
 		if (!line)
-			break;
+			break ;
 		new = ft_lstnew(line);
 		if (!new)
 			return (ft_lstclear(&head, free), free(line), NULL);
 		ft_lstadd_back(&head, new);
 	}
 	close(fd);
-	return head;
+	return (head);
 }
 
 /* walk through the list to get the map data
  * @return t_map includes height, width
  */
-t_map *get_map_data(t_list *head)
+t_map	*get_map_data(t_list *head)
 {
-	t_map *map;
-	unsigned int width;
+	t_map			*map;
+	unsigned int	width;
 
 	map = malloc(sizeof(t_map));
 	if (!map)
-		return NULL;
+		return (NULL);
 	map->height = ft_lstsize(head);
 	map->width = ft_count_word(head->content, ' ');
 	while (head)
@@ -61,25 +61,25 @@ t_map *get_map_data(t_list *head)
 			return (ft_putendl_fd("invalid map", 2), NULL);
 		head = head->next;
 	}
-	return map;
+	return (map);
 }
 
-int *build_map(t_list *head, t_map *map_data)
+int	*build_map(t_list *head, t_map *map_data)
 {
-	int *map;
-	char **str_split;
-	int y;
-	int x;
+	int		*map;
+	char	**str_split;
+	int		y;
+	int		x;
 
 	map = malloc(sizeof(int) * map_data->height * map_data->width);
 	if (!map)
-		return NULL;
+		return (NULL);
 	y = 0;
 	while (head)
 	{
 		str_split = ft_split(head->content, ' ');
 		if (!str_split)
-			return NULL;
+			return (NULL);
 		x = -1;
 		while (str_split[++x])
 			map[y * map_data->width + x] = ft_atoi(str_split[x]);
@@ -87,7 +87,7 @@ int *build_map(t_list *head, t_map *map_data)
 		free_split(str_split);
 		head = head->next;
 	}
-	return map;
+	return (map);
 }
 
 void	free_split(char **arr)
@@ -99,4 +99,3 @@ void	free_split(char **arr)
 		free(arr[i++]);
 	free(arr);
 }
-
