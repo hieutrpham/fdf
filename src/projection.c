@@ -68,7 +68,7 @@ t_point2d *convert_3d_to_2d(int *map, t_map *map_data)
 }
 
 // converts a 3d point {x,y,z} to a 2d point {x,y} base on isometric projection
-t_point2d project_isometric(t_point3d p3d, t_map *map, int scale)
+t_point2d project_isometric(t_point3d p3d, t_map *map, float scale)
 {
     t_point2d p2d;
 

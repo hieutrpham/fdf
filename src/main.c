@@ -6,7 +6,7 @@
 /*   By: trupham <trupham@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 15:10:22 by trupham           #+#    #+#             */
-/*   Updated: 2025/06/20 12:28:55 by trupham          ###   ########.fr       */
+/*   Updated: 2025/07/01 11:15:11 by trupham          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int main(int ac, char **av)
 	}
 	main_draw(g_img, av[1]);
 	mlx_image_to_window(mlx, g_img, 0, 0);
+	mlx_key_hook(mlx, close_win, NULL);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);

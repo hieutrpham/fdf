@@ -15,6 +15,7 @@ SRC = main.c \
 	  draw.c \
 	  parser.c \
 	  projection.c \
+	  hooks.c \
 
 SRCS = $(addprefix $(SRC_PATH), $(SRC))
 
