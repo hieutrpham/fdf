@@ -53,6 +53,7 @@ int	main(int ac, char **av)
 		mlx_terminate(mlx);
 		exit(EXIT_FAILURE);
 	}
+	ft_printf("map: %s\n", av[1]);
 	main_draw(g_img, av[1]);
 	mlx_image_to_window(mlx, g_img, 0, 0);
 	mlx_key_hook(mlx, close_win, mlx);

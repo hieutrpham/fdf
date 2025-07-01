@@ -19,10 +19,11 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include "../libft/libft.h"
+#include <math.h>
 #define WIDTH 1920
 #define HEIGHT 2000
 #define WHITE 0xFFFFFFFF
-#define SCALE 0.5
+#define SCALE 8
 
 /* @struct to store 3d point
  * @members: int x, y, z
@@ -68,4 +69,5 @@ void	free_split(char **arr);
 t_point2d *convert_3d_to_2d(int *map, t_map *map_data);
 void connect_lines(t_point2d *points_2d, mlx_image_t *g_img, t_map *map_data);
 void close_win(mlx_key_data_t keydata, void* param);
+float get_diagnal(t_map *map);
 #endif // !FDF_H

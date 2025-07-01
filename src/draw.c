@@ -54,12 +54,13 @@ void	draw_line(mlx_image_t *img, t_point2d p0, t_point2d p1, int color)
 		put_pixel(img, p0.x, p0.y, color);
 		if (p0.x == p1.x && p0.y == p1.y)
 			break ;
-		if (2 * bres->err > -bres->dy)
+		int e2 = 2 * bres->err;
+		if (e2 > -bres->dy)
 		{
 			bres->err -= bres->dy;
 			p0.x += bres->sx;
 		}
-		if (2 * bres->err < bres->dx)
+		if (e2 < bres->dx)
 		{
 			bres->err += bres->dx;
 			p0.y += bres->sy;
