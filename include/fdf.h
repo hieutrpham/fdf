@@ -55,8 +55,8 @@ typedef struct s_bres {
 
 typedef struct s_map
 {
-	unsigned int height;
-	unsigned int width;
+	int height;
+	int width;
 } t_map;
 
 void put_pixel(mlx_image_t* img, uint16_t x, uint16_t y, int color);

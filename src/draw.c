@@ -45,6 +45,7 @@ t_bres	*init_bres(t_point2d p0, t_point2d p1)
 void	draw_line(mlx_image_t *img, t_point2d p0, t_point2d p1, int color)
 {
 	t_bres	*bres;
+	int		e2;
 
 	bres = init_bres(p0, p1);
 	if (!bres)
@@ -54,7 +55,7 @@ void	draw_line(mlx_image_t *img, t_point2d p0, t_point2d p1, int color)
 		put_pixel(img, p0.x, p0.y, color);
 		if (p0.x == p1.x && p0.y == p1.y)
 			break ;
-		int e2 = 2 * bres->err;
+		e2 = 2 * bres->err;
 		if (e2 > -bres->dy)
 		{
 			bres->err -= bres->dy;

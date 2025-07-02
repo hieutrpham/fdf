@@ -46,8 +46,8 @@ t_list	*build_list(char *av)
  */
 t_map	*get_map_data(t_list *head)
 {
-	t_map			*map;
-	unsigned int	width;
+	t_map	*map;
+	int		width;
 
 	map = malloc(sizeof(t_map));
 	if (!map)
