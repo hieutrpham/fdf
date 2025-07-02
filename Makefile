@@ -26,6 +26,7 @@ DEP = $(addprefix $(OBJ_PATH), $(SRC:.c=.d))
 all: libmlx $(OBJ_PATH) $(LIBFT) $(NAME)
 
 libmlx:
+	@git submodule update --init --recursive
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4
 
 $(OBJ_PATH):
