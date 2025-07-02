@@ -48,7 +48,7 @@ t_point2d	*convert_3d_to_2d(int *map, t_map *map_data)
 	int			x;
 	float		scale;
 
-	scale = WIDTH / get_diagnal(map_data) * cos(30.0f / 180.0f * M_PI);
+	scale = WIDTH / get_diagnal(map_data) * cos(30.0f / 180.0f * M_PI) * 0.75;
 	points_2d = malloc(sizeof(t_point2d) * map_data->width * map_data->height);
 	if (!points_2d)
 		return (NULL);
